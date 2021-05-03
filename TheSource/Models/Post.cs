@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace TheSource.Models
 {
@@ -11,11 +8,10 @@ namespace TheSource.Models
     {
         public Post()
         {
-
         }
 
         public int Id { get; set; }
-        
+
         [Required]
         public string Title { get; set; }
 
@@ -38,7 +34,6 @@ namespace TheSource.Models
                 sb.Append(word + " ");
             }
             return string.Format("{0}", sb.ToString().TrimEnd(' '));
-
         }
     }
 }
