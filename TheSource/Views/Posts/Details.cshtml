@@ -1,0 +1,59 @@
+﻿@model TheSource.Models.Comments
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div>
+    <h1>@ViewBag.Post.Title</h1><h6><i>Author: @ViewBag.Post.Author</i></h6>
+    <hr />
+    @if (ViewBag.IsAuthor)
+    {
+        <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@ViewBag.Post.Id">Edit</a>
+        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@ViewBag.Post.Id">Delete</a>
+    }
+    <p>@Html.Raw(ViewBag.Post.Body)</p>
+</div>
+<br />
+<div>
+    <hr />
+    <h4>Comments:</h4>
+    @if (ViewBag.Comments.Count <= 0)
+    {
+        <h3><i>Be the first one to comment!</i></h3>
+    }
+    else
+    {
+        foreach (var comment in ViewBag.Comments)
+        {
+            <h5>@comment.Comment</h5>
+            <h6><i>- @comment.Name</i></h6>
+            <hr />
+        }
+    }
+    <div>
+        <form asp-action="Comment">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PostId" value="@ViewBag.Post.Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comment" class="control-label"></label>
+                <textarea asp-for="Comment" class="form-control" id="editor"></textarea>
+                <span asp-validation-for="Comment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Post Comment" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <hr />
+    <a class="btn btn-info" asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

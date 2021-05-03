@@ -1,0 +1,67 @@
+﻿@model IEnumerable<TheSource.Models.Post>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Latest Source</h1>
+<hr />
+
+@if (ViewBag.IsAuthor != null && !(ViewBag.IsAuthor))
+{
+    <div class="alert alert-danger">
+        <strong>Oh no!</strong> You are trying to do an action on another author's post.
+    </div>
+}
+
+@if (Model.Count() <= 0)
+{
+    <div class="text-center">
+        <h1><a class="nav-link text-success" asp-area="" asp-controller="Posts" asp-action="Create">@ViewBag.Message</a></h1>
+    </div>
+}
+
+@foreach (var item in Model)
+{
+    <div>
+        <h3 lass="mt-3">@Html.DisplayFor(modelItem => item.Title)</h3>
+        <div>
+            @Html.Raw(item.Chop(item.Body))
+        </div>
+        <i>Author: @Html.DisplayFor(modelItem => item.Author)</i>
+        <p><a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Read More...</a></p>
+    </div>
+    <hr />
+}
+
+@*<table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Body)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Body)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+*@

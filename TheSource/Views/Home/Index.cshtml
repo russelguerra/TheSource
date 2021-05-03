@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome To The Source</h1>
+    <p>Your source of all types of posts.</p>
+
+    @if (!ViewBag.IsLoggedIn)
+    {
+        <p><a id="manage" asp-area="Identity" asp-page="/Account/Login" title="Login">Login</a> or <a id="manage" asp-area="Identity" asp-page="/Account/Register" title="Register">Register</a> to start posting your hot sources.</p>
+        <p>No Account? No worries! <a asp-area="" asp-controller="Posts" asp-action="Index">Can still see the latest sources.</a></p>
+    }
+</div>
